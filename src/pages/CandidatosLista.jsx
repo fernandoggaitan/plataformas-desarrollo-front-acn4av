@@ -2,7 +2,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import img1 from '../img/90.jpg'
-import CandidatoItem from './CandidatoItem';
+import CandidatoItem from '../components/CandidatoItem';
 
 import { useState } from 'react';
 

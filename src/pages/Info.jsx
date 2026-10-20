@@ -1,7 +1,7 @@
 export default function Info (){
 
     return (
-        <h1> Info </h1>
+        <h1 className="mb-4 text-center"> Info </h1>
     )
 
 }

@@ -38,7 +38,7 @@ export default function CandidatosLista() {
 
     return (
         <>
-            <h2> Lista de candidata/os </h2>
+            <h1 className="mb-4 text-center"> Lista de candidata/os </h1>
             <p> Cantidad de votos: {cantidad_votos} </p>
             <Row xs={1} md={3} className="g-4">
 

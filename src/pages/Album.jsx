@@ -52,7 +52,7 @@ export default function Album() {
 
   return (
     <>
-      <h2 className="mb-4 text-center">Álbum de Fotos </h2>
+      <h1 className="mb-4 text-center">Álbum de Fotos </h1>
 
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">

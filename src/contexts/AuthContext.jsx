@@ -5,16 +5,19 @@ const AuthContext = createContext();
 export default function AuthProvider({ children }) {
 
     const [is_logueado, setIsLogueado] = useState(false);
+    const [accessToken, setAccessToken] = useState(null);
 
-    const login = () => {
+    const login = (accessToken) => {
         setIsLogueado(true);
+        setAccessToken(accessToken);
     }
 
     const logout = () => {
         setIsLogueado(false);
+        setAccessToken(null);
     }
 
-    return <AuthContext.Provider value={ {is_logueado, login, logout} }>
+    return <AuthContext.Provider value={ {is_logueado, accessToken, login, logout} }>
         {children}
     </AuthContext.Provider>
 

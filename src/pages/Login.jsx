@@ -6,17 +6,41 @@ import { Button } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from "react-router-dom";
 
+import { useState } from 'react';
+
+//Api.
+import { loginRequest } from '../api/auth.api';
+
 export default function Login(){
 
     const {login} = useAuth();
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [contrasena, setContrasena] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = (e) => {
+    const handleLogin = async(e) => {
         e.preventDefault();
-        //Cambia el estado is_logueado a true.
-        login();
-        //Redirecciona a la página dashboard.
-        navigate("/dashboard");
+
+        setLoading(true);
+
+        try{
+
+            //Consumos el API.
+            const data = await loginRequest(email, contrasena);
+            //Iniciamos sesión y guardamos el accessToken
+            login(data.acccessToken);
+            //Redireccionamos a "/dashboard"
+            navigate("/dashboard");
+
+        }catch(error){
+
+            alert("Error al intentar iniciar sesión");
+
+        }finally{
+            setLoading(false);
+        }
+
     }
 
     return (
@@ -28,7 +52,7 @@ export default function Login(){
                         Email
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control placeholder='Ingrese su correo electrónico' />
+                        <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Ingrese su correo electrónico' />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
@@ -36,10 +60,10 @@ export default function Login(){
                         Password
                     </Form.Label>
                     <Col sm="10">
-                        <Form.Control type="password" placeholder='Ingrese su contraseña' />
+                        <Form.Control value={contrasena} onChange={(e) => setContrasena(e.target.value)} type="password" placeholder='Ingrese su contraseña' />
                     </Col>
                 </Form.Group>
-                <Button type='submit' onClick={handleLogin} variant='primary'> Iniciar sesión </Button>
+                <Button disabled={loading} type='submit' onClick={handleLogin} variant='primary'> Iniciar sesión </Button>
             </Form>
         </>
     )
